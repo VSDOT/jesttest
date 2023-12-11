@@ -2,7 +2,6 @@ workflows:
     react-native-android:
         name: React Native Android
         max_build_duration: 120
-        instance_type: mac_mini
         # environment:
         #     vars:
         #         PACKAGE_NAME: "com.mainapp" # <-- Put your package name here e.g. com.domain.myapp
