@@ -30,7 +30,7 @@ workflows:
               script: npm test                                
             - name: Build Android release
               script: |
-                cd android && chmod +x gradlew && ./gradlew assembleRelease 
+                cd android && chmod +x gradlew && ./gradlew assembleRelease --stacktrace
                 
                # # Set environment variable so it can be used to increment build number in android/app/build.gradle
                 # Note that tracks can be specified when retrieving latest build number from Google Play, for example:
