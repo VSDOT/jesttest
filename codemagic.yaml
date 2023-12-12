@@ -31,9 +31,7 @@ workflows:
             - name: Build Android release
               script: |
                 cd android && chmod +x gradlew && ./gradlew assembleRelease 
-               # cd .. && npx jesttest bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-               # cd android && ./gradlew assembleRelease
-                npx jesttest run-android --variant=release
+                
                # # Set environment variable so it can be used to increment build number in android/app/build.gradle
                 # Note that tracks can be specified when retrieving latest build number from Google Play, for example:
                 # export NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=alpha) + 1))
