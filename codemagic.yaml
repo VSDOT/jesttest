@@ -4,14 +4,27 @@ workflows:
         name: React Native Android
         max_build_duration: 120
         instance_type: mac_mini_m2
+        integrations:
+      node:
+        version: "14.x"
+        cache: true
+      cocoapods:
+        version: "1.10.1"
+        cache: true
+      xcode:
+        version: "latest"
+        license: "accept"
+      vars:
+        MY_VARIABLE: "my_value"
+
         # environment:
         #   android_signing:
         #     - keystore_reference
           # groups:
           #   - google_play # <-- (Includes GCLOUD_SERVICE_ACCOUNT_CREDENTIALS <-- Put your google-services.json)
-          vars:
-            PACKAGE_NAME: "io.codemagic.sample.reactnative" # <-- Put your package name here e.g. com.domain.myapp
-          node: v19.7.0
+          # vars:
+          #   PACKAGE_NAME: "io.codemagic.sample.reactnative" # <-- Put your package name here e.g. com.domain.myapp
+          # node: v19.7.0
         scripts:
             - name: Install npm dependencies
               script: |
