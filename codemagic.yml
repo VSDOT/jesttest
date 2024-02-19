@@ -1,0 +1,37 @@
+workflows:
+  react_native_workflow:
+    name: React Native Build and Test
+    max_build_duration: 120
+    environment:
+      flutter: stable
+    scripts:
+      - name: Install dependencies
+        script: npm install
+
+      - name: Build iOS
+        script: |
+          cd ios/
+          pod install
+          xcodebuild clean -workspace Movie-App.xcworkspace -scheme Movie-App -configuration Release
+          xcodebuild archive -workspace Movie-App.xcworkspace -scheme Movie-App -configuration Release -archivePath build/CMovie-App.xcarchive
+          xcodebuild -exportArchive -archivePath build/rMovie-App.xcarchive -exportOptionsPlist exportOptions.plist -exportPath build/Movie-App/ios
+          npx Movie-App run-ios --configuration=release
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties" 
+      - name: Build Android
+        script: |
+          cd android && chmod +x gradlew && ./gradlew assembleRelease
+          cd .. && npx Movie-App bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/ --assets-dest android/app/src/main/res/
+          
+          cd android && ./gradlew assembleRelease
+          npx Movie-App run-android --variant=release
+
+     artifacts:
+      - ios/build/*.ipa
+      - android/app/build/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - manimv1268@gmail.com        
